@@ -12,8 +12,8 @@ export const generatePDF = async (template, data) => {
     // Create a new PDF document
     const pdfDoc = await PDFDocument.create();
     
-    // Get the background image path
-    const backgroundImagePath = path.join(__dirname, '..', template.backgroundImageURL);
+    // Get the background image path - fixed: relative to server root
+    const backgroundImagePath = path.join(process.cwd(), template.backgroundImageURL);
     
     // Check if background image exists
     if (!fs.existsSync(backgroundImagePath)) {
@@ -98,10 +98,10 @@ export const generatePDF = async (template, data) => {
     // Create filename
     const timestamp = Date.now();
     const fileName = `certificate_${data.recipientName.replace(/\s+/g, '_')}_${timestamp}.pdf`;
-    const filePath = path.join(__dirname, '..', 'certificates', fileName);
+    const filePath = path.join(process.cwd(), 'certificates', fileName);
     
     // Ensure certificates directory exists
-    const certificatesDir = path.join(__dirname, '..', 'certificates');
+    const certificatesDir = path.join(process.cwd(), 'certificates');
     if (!fs.existsSync(certificatesDir)) {
       fs.mkdirSync(certificatesDir, { recursive: true });
     }

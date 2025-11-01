@@ -8,7 +8,7 @@ import {
   changePassword
 } from '../controllers/authController.js';
 import { authenticate } from '../middleware/auth.js';
-import { handleValidationErrors } from '../middleware/validationHandler.js'; // Added: Validation error handler
+import { handleValidationErrors } from '../middleware/validationHandler.js';
 
 const router = express.Router();
 

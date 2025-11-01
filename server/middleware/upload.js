@@ -9,7 +9,8 @@ const __dirname = dirname(__filename);
 // Storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../uploads/'));
+    // Fixed: Path relative to server root, not middleware directory
+    cb(null, path.join(process.cwd(), 'uploads'));
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);

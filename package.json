@@ -4,14 +4,21 @@
   "description": "A complete MERN stack certificate generation application",
   "main": "server/index.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm run dev",
-    "build": "cd client && npm run build",
-    "start": "cd server && npm start",
-    "seed": "cd server && node scripts/seedAdmin.js"
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "seed": "npm run seed --prefix server"
   },
-  "keywords": ["mern", "certificate", "pdf", "mongodb", "react", "express"],
+  "keywords": [
+    "mern",
+    "certificate",
+    "pdf",
+    "mongodb",
+    "react",
+    "express"
+  ],
   "author": "CertifyPro Team",
   "license": "MIT",
   "devDependencies": {
