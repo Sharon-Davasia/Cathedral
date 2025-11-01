@@ -3,7 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import { connectDB } from './config/db.js';
+import fs from 'fs';
+import path from 'path';
+import { connectDB } from '../config/db.js'; // Changed: Use root config/db.js as canonical DB config
 import authRoutes from '../routes/auth.js';
 import certificateRoutes from '../routes/certificates.js';
 import userRoutes from '../routes/users.js';
@@ -11,6 +13,18 @@ import { errorHandler } from '../middleware/errorHandler.js';
 import { logger } from '../utils/logger.js';
 
 dotenv.config();
+
+// Added: Ensure required directories exist on startup
+const ensureDirectories = () => {
+  const requiredDirs = ['uploads', 'certificates'];
+  requiredDirs.forEach(dir => {
+    const dirPath = path.join(process.cwd(), dir);
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+      logger.info(`Created directory: ${dir}`);
+    }
+  });
+};
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -65,6 +79,9 @@ app.use(errorHandler);
 // Connect to database and start server
 const startServer = async () => {
   try {
+    // Added: Ensure upload directories exist before starting server
+    ensureDirectories();
+    
     await connectDB();
     app.listen(PORT, () => {
       logger.info(`Server running on port ${PORT}`);

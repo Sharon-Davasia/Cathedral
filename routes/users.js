@@ -8,6 +8,7 @@ import {
   getDashboardStats
 } from '../controllers/userController.js';
 import { authenticate, authorize } from '../middleware/auth.js';
+import { handleValidationErrors } from '../middleware/validationHandler.js'; // Added: Validation error handler
 
 const router = express.Router();
 
@@ -37,7 +38,8 @@ router.get('/:id', authenticate, authorize('admin'), getUser);
 // @route   PUT /api/users/:id
 // @desc    Update user
 // @access  Private (Admin only)
-router.put('/:id', authenticate, authorize('admin'), updateUserValidation, updateUser);
+// Added: handleValidationErrors to catch express-validator errors
+router.put('/:id', authenticate, authorize('admin'), updateUserValidation, handleValidationErrors, updateUser);
 
 // @route   DELETE /api/users/:id
 // @desc    Delete user

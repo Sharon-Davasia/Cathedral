@@ -7,6 +7,13 @@ export const errorHandler = (err, req, res, next) => {
   // Log error
   logger.error(err);
 
+  // Added: Express-validator validation errors
+  if (Array.isArray(err) || (err.array && typeof err.array === 'function')) {
+    const validationErrors = Array.isArray(err) ? err : err.array();
+    const message = validationErrors.map(e => e.msg || e.message || `${e.param}: ${e.msg}`).join(', ');
+    error = { message, statusCode: 400 };
+  }
+
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
     const message = 'Resource not found';

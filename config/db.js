@@ -2,7 +2,24 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { logger } from '../utils/logger.js';
 
+// Added: Validate required .env variables at startup
+const validateEnvVariables = () => {
+  const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET'];
+  const missingVars = requiredEnvVars.filter(key => !process.env[key] || process.env[key].trim() === '');
+  
+  if (missingVars.length > 0) {
+    logger.error('Missing required environment variables:');
+    missingVars.forEach(key => logger.error(`  - ${key}`));
+    logger.error('\nPlease ensure all required variables are set in your .env file.');
+    logger.error('For reference, check server/env.example for the required variables.\n');
+    process.exit(1);
+  }
+};
+
 export const connectDB = async () => {
+  // Added: Validate .env variables before attempting connection
+  validateEnvVariables();
+  
   const connectWithUri = async (uri) => {
     const connection = await mongoose.connect(uri, {
       useNewUrlParser: true,

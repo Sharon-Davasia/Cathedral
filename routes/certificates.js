@@ -12,6 +12,7 @@ import {
 } from '../controllers/certificateController.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 import { uploadSingle } from '../middleware/upload.js';
+import { handleValidationErrors } from '../middleware/validationHandler.js'; // Added: Validation error handler
 
 const router = express.Router();
 
@@ -45,12 +46,13 @@ router.get('/templates/:id', authenticate, getTemplate);
 // @route   POST /api/certificates/templates
 // @desc    Create certificate template
 // @access  Private
-router.post('/templates', authenticate, templateValidation, createTemplate);
+// Added: handleValidationErrors to catch express-validator errors
+router.post('/templates', authenticate, templateValidation, handleValidationErrors, createTemplate);
 
 // @route   PUT /api/certificates/templates/:id
 // @desc    Update certificate template
 // @access  Private
-router.put('/templates/:id', authenticate, templateValidation, updateTemplate);
+router.put('/templates/:id', authenticate, templateValidation, handleValidationErrors, updateTemplate);
 
 // @route   DELETE /api/certificates/templates/:id
 // @desc    Delete certificate template
@@ -84,7 +86,7 @@ router.post('/upload', authenticate, uploadSingle, (req, res) => {
 // @route   POST /api/certificates/generate
 // @desc    Generate certificate
 // @access  Private
-router.post('/generate', authenticate, generateCertificateValidation, generateCertificate);
+router.post('/generate', authenticate, generateCertificateValidation, handleValidationErrors, generateCertificate);
 
 // @route   GET /api/certificates/issued
 // @desc    Get issued certificates

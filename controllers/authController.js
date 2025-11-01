@@ -14,7 +14,7 @@ const generateToken = (userId) => {
 // @access  Public
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -22,12 +22,13 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists with this email' });
     }
 
-    // Create user
+    // Changed: Hard-code role to 'staff' for security - NEVER allow admin role via registration
+    // Admin accounts can only be created via seed scripts or direct database manipulation
     const user = await User.create({
       name,
       email,
       password,
-      role: role || 'staff'
+      role: 'staff' // Registration should NEVER create admin accounts
     });
 
     const token = generateToken(user._id);

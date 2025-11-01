@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
+// Added: Simple logger implementation for production readiness
+// Consider Winston for more advanced features like log rotation and structured JSON
+// For now, this provides basic logging with file output and console logging
 class Logger {
   constructor() {
     this.logDir = 'logs';
@@ -51,4 +54,7 @@ class Logger {
   }
 }
 
+// Note: For production deployments with high log volume, consider using Winston
+// or similar library for automatic log rotation, structured JSON output,
+// and environment-based log management
 export const logger = new Logger();
