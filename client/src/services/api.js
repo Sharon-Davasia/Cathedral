@@ -78,4 +78,31 @@ export const userAPI = {
   getDashboardStats: () => api.get('/users/dashboard'),
 }
 
+// Baptism Certificate API
+export const baptismAPI = {
+  getCertificates: (params) => api.get('/baptism', { params }),
+  getCertificate: (id) => api.get(`/baptism/${id}`),
+  createCertificate: (data) => api.post('/baptism', data),
+  updateCertificate: (id, data) => api.put(`/baptism/${id}`, data),
+  deleteCertificate: (id) => api.delete(`/baptism/${id}`),
+}
+
+// Death Certificate API
+export const deathAPI = {
+  getCertificates: (params) => api.get('/death', { params }),
+  getCertificate: (id) => api.get(`/death/${id}`),
+  createCertificate: (data) => api.post('/death', data),
+  updateCertificate: (id, data) => api.put(`/death/${id}`, data),
+  deleteCertificate: (id) => api.delete(`/death/${id}`),
+}
+
+// Marriage Certificate API
+export const marriageAPI = {
+  getCertificates: (params) => api.get('/marriage', { params }),
+  getCertificate: (id) => api.get(`/marriage/${id}`),
+  createCertificate: (data) => api.post('/marriage', data),
+  updateCertificate: (id, data) => api.put(`/marriage/${id}`, data),
+  deleteCertificate: (id) => api.delete(`/marriage/${id}`),
+}
+
 export default api

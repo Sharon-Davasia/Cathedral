@@ -11,6 +11,9 @@ import Certificates from './pages/Certificates'
 import GenerateCertificate from './pages/GenerateCertificate'
 import Users from './pages/Users'
 import Profile from './pages/Profile'
+import BaptismCertificate from './pages/BaptismCertificate'
+import DeathCertificate from './pages/DeathCertificate'
+import MarriageCertificate from './pages/MarriageCertificate'
 import LoadingSpinner from './components/LoadingSpinner'
 
 function App() {
@@ -41,6 +44,9 @@ function App() {
         <Route path="templates/:id/edit" element={<EditTemplate />} />
         <Route path="certificates" element={<Certificates />} />
         <Route path="certificates/generate" element={<GenerateCertificate />} />
+        <Route path="baptism" element={<BaptismCertificate />} />
+        <Route path="death" element={<DeathCertificate />} />
+        <Route path="marriage" element={<MarriageCertificate />} />
         <Route path="users" element={<Users />} />
         <Route path="profile" element={<Profile />} />
       </Route>

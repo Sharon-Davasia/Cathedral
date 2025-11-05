@@ -9,6 +9,9 @@ import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.js';
 import certificateRoutes from './routes/certificates.js';
 import userRoutes from './routes/users.js';
+import baptismRoutes from './routes/baptism.js';
+import deathRoutes from './routes/death.js';
+import marriageRoutes from './routes/marriage.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { logger } from './utils/logger.js';
 
@@ -58,6 +61,9 @@ app.use('/certificates', express.static(path.join(process.cwd(), 'certificates')
 app.use('/api/auth', authRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/baptism', baptismRoutes);
+app.use('/api/death', deathRoutes);
+app.use('/api/marriage', marriageRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
