@@ -41,42 +41,15 @@ api.interceptors.response.use(
   }
 )
 
-// Auth API
+// Auth API (minimal)
 export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
-  register: (userData) => api.post('/auth/register', userData),
   getProfile: () => api.get('/auth/profile'),
-  updateProfile: (userData) => api.put('/auth/profile', userData),
-  changePassword: (passwordData) => api.put('/auth/change-password', passwordData),
 }
 
-// Certificate API
-export const certificateAPI = {
-  getTemplates: (params) => api.get('/certificates/templates', { params }),
-  getTemplate: (id) => api.get(`/certificates/templates/${id}`),
-  createTemplate: (templateData) => api.post('/certificates/templates', templateData),
-  updateTemplate: (id, templateData) => api.put(`/certificates/templates/${id}`, templateData),
-  deleteTemplate: (id) => api.delete(`/certificates/templates/${id}`),
-  uploadFile: (file) => {
-    const formData = new FormData()
-    formData.append('file', file)
-    return api.post('/certificates/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-  },
-  generateCertificate: (certificateData) => api.post('/certificates/generate', certificateData),
-  getIssuedCertificates: (params) => api.get('/certificates/issued', { params }),
-  downloadCertificate: (id) => api.get(`/certificates/download/${id}`, { responseType: 'blob' }),
-}
+// Removed template/generic certificate APIs
 
-// User API
-export const userAPI = {
-  getUsers: (params) => api.get('/users', { params }),
-  getUser: (id) => api.get(`/users/${id}`),
-  updateUser: (id, userData) => api.put(`/users/${id}`, userData),
-  deleteUser: (id) => api.delete(`/users/${id}`),
-  getDashboardStats: () => api.get('/users/dashboard'),
-}
+// Removed user management APIs
 
 // Baptism Certificate API
 export const baptismAPI = {

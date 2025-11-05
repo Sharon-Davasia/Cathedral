@@ -55,9 +55,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    const normalizedEmail = String(email || '').trim().toLowerCase();
 
     // Check if user exists
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -79,7 +80,7 @@ export const login = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    logger.info(`User logged in: ${email}`);
+    logger.info(`User logged in: ${normalizedEmail}`);
 
     res.json({
       success: true,

@@ -1,13 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { 
-  LayoutDashboard, 
-  FileText, 
-  Plus, 
-  Award, 
-  Users, 
-  Settings,
-  FileCheck
+  LayoutDashboard,
+  Droplets,
+  Skull,
+  HeartHandshake
 } from 'lucide-react'
 
 const Sidebar = () => {
@@ -21,30 +18,20 @@ const Sidebar = () => {
       icon: LayoutDashboard,
     },
     {
-      name: 'Templates',
-      href: '/templates',
-      icon: FileText,
+      name: 'Baptism Certificate',
+      href: '/baptism',
+      icon: Droplets,
     },
     {
-      name: 'Create Template',
-      href: '/templates/create',
-      icon: Plus,
+      name: 'Death Certificate',
+      href: '/death',
+      icon: Skull,
     },
     {
-      name: 'Certificates',
-      href: '/certificates',
-      icon: Award,
+      name: 'Marriage Certificate',
+      href: '/marriage',
+      icon: HeartHandshake,
     },
-    {
-      name: 'Generate Certificate',
-      href: '/certificates/generate',
-      icon: FileCheck,
-    },
-    ...(user?.role === 'admin' ? [{
-      name: 'Users',
-      href: '/users',
-      icon: Users,
-    }] : []),
   ]
 
   const isActive = (href) => {

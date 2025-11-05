@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../contexts/AuthContext'
 import Button from '../components/Button'
@@ -18,7 +18,11 @@ const Login = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    const result = await login(data)
+    const payload = {
+      email: String(data.email || '').trim().toLowerCase(),
+      password: String(data.password || '').trim()
+    }
+    const result = await login(payload)
     if (result.success) {
       navigate('/dashboard')
     }
@@ -31,15 +35,7 @@ const Login = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to CertifyPro
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
-            <Link
-              to="/register"
-              className="font-medium text-primary-600 hover:text-primary-500"
-            >
-              create a new account
-            </Link>
-          </p>
+          
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
